@@ -67,7 +67,7 @@ void Display::create_philo_header()
 {
     WINDOW* pheader = ::newwin(4, ::COLS / 2, 3, 0);
     _all_windows.push_back(pheader);
-    ::(mvwhline(pheader, 0, 0, ACS_HLINE, ::COLS / 2));
+    mvwhline(pheader, 0, 0, ACS_HLINE, ::COLS / 2);
     mvwhline(pheader, 2, 0, ACS_HLINE, ::COLS / 2);
     mvwvline(pheader, 1, 0, ACS_VLINE, 1);
     mvwvline(pheader, 1, ::COLS / 2 - 1, ACS_VLINE, 1);
@@ -143,7 +143,6 @@ void Display::update_pwin(unsigned id, PhilosopherState state, int percentage)
     wattroff(win, COLOR_PAIR(_color_counter + id));
     wrefresh(win);
 }
-
 void Display::update_fwin(unsigned id, unsigned user_id, bool dirty)
 {
     WINDOW* win = _fwindows[id];

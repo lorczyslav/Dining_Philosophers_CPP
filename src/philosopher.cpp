@@ -21,7 +21,8 @@ Philosopher::Philosopher(Display& display_controller, Fork& left_fork, Fork& rig
 
 Philosopher::~Philosopher()
 {
-    _plife_thread.join();
+    if (_plife_thread.joinable())
+        _plife_thread.join();
 }
 
 void Philosopher::run()

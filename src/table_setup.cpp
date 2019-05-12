@@ -32,6 +32,8 @@ void TableSetup::set_table()
 {
     make_forks();
     spawn_philosophers();
+    // wait for all threads to initialize
+    std::this_thread::sleep_for(std::chrono::milliseconds(10));
     cv.notify_all();
     _display_ct.main_loop();
 }
