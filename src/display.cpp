@@ -25,27 +25,27 @@ std::atomic<bool>& Display::get_kill_switch()
 
 void Display::init_sequence()
 {
-    ::initscr();
-    ::raw();
-    ::noecho();
-    ::curs_set(false);
-    ::start_color();
-    ::use_default_colors();
-    ::keypad(stdscr, true);
-    ::refresh();
+    initscr();
+    raw();
+    noecho();
+    curs_set(false);
+    start_color();
+    use_default_colors();
+    keypad(stdscr, true);
+    refresh();
 }
 
 void Display::destroy_window(WINDOW* win)
 {
-    ::wborder(win, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
-    ::wrefresh(win);
-    ::delwin(win);
+    wborder(win, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
+    wrefresh(win);
+    delwin(win);
 }
 
 void Display::make_color_pairs()
 {
     for (int i = 0; i < 256; ++i) {
-        ::init_pair(i + 1, i, -1);
+        init_pair(i + 1, i, -1);
     }
 }
 
@@ -53,14 +53,14 @@ void Display::create_title_frame()
 {
     WINDOW* title_window = ::newwin(3, ::COLS, 0, 0);
     _all_windows.push_back(title_window);
-    ::wattron(title_window, COLOR_PAIR(4));
-    ::box(title_window, 0, 0);
-    ::wattroff(title_window, COLOR_PAIR(4));
+    wattron(title_window, COLOR_PAIR(4));
+    box(title_window, 0, 0);
+    wattroff(title_window, COLOR_PAIR(4));
 
-    ::wattron(title_window, COLOR_PAIR(6));
-    ::mvwprintw(title_window, 1, ::COLS / 2 - 25, "Dining Philosophers using Chandy Misra Algorithm");
-    ::wattroff(title_window, COLOR_PAIR(6));
-    ::wrefresh(title_window);
+    wattron(title_window, COLOR_PAIR(6));
+    mvwprintw(title_window, 1, ::COLS / 2 - 25, "Dining Philosophers using Chandy Misra Algorithm");
+    wattroff(title_window, COLOR_PAIR(6));
+    wrefresh(title_window);
 }
 
 void Display::create_philo_header()
@@ -72,12 +72,12 @@ void Display::create_philo_header()
     mvwvline(pheader, 1, 0, ACS_VLINE, 1);
     mvwvline(pheader, 1, ::COLS / 2 - 1, ACS_VLINE, 1);
 
-    ::wattron(pheader, COLOR_PAIR(0));
-    ::mvwprintw(pheader, 1, 1, "Philosopher");
-    ::mvwprintw(pheader, 1, 15, "Status");
-    ::mvwprintw(pheader, 1, 35, "Progress");
-    ::wattroff(pheader, COLOR_PAIR(0));
-    ::wrefresh(pheader);
+    wattron(pheader, COLOR_PAIR(0));
+    mvwprintw(pheader, 1, 1, "Philosopher");
+    mvwprintw(pheader, 1, 15, "Status");
+    mvwprintw(pheader, 1, 35, "Progress");
+    wattroff(pheader, COLOR_PAIR(0));
+    wrefresh(pheader);
 }
 
 void Display::create_fork_header()
@@ -89,12 +89,12 @@ void Display::create_fork_header()
     mvwvline(fheader, 1, 0, ACS_VLINE, 1);
     mvwvline(fheader, 1, ::COLS / 2 - 1, ACS_VLINE, 1);
 
-    ::wattron(fheader, COLOR_PAIR(0));
-    ::mvwprintw(fheader, 1, 1, "Fork");
-    ::mvwprintw(fheader, 1, 15, "Status");
-    ::mvwprintw(fheader, 1, 35, "Last user");
-    ::wattroff(fheader, COLOR_PAIR(0));
-    ::wrefresh(fheader);
+    wattron(fheader, COLOR_PAIR(0));
+    mvwprintw(fheader, 1, 1, "Fork");
+    mvwprintw(fheader, 1, 15, "Status");
+    mvwprintw(fheader, 1, 35, "Last user");
+    wattroff(fheader, COLOR_PAIR(0));
+    wrefresh(fheader);
 }
 
 void Display::create_pwin(unsigned pid, PhilosopherState state)
@@ -143,6 +143,7 @@ void Display::update_pwin(unsigned id, PhilosopherState state, int percentage)
     wattroff(win, COLOR_PAIR(_color_counter + id));
     wrefresh(win);
 }
+
 void Display::update_fwin(unsigned id, unsigned user_id, bool dirty)
 {
     WINDOW* win = _fwindows[id];
